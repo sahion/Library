@@ -16,14 +16,22 @@ function addBookToLibrary(){
   let read = (prompt("Did you read this book? Y/N")=="Y" ? true : false );
   let pages = prompt("how much pages in this book?");
   myLibrary.push(new Book(title,author,read,pages));
+  UpdateLibrary();
 }
 
 
 
 
 function UpdateLibrary(){
+
+  previousBooks = document.querySelector(".books");
+document.body.removeChild(previousBooks);
+const booksLibrary = document.createElement("div"); 
+booksLibrary.classList.add("books");
+document.body.appendChild(booksLibrary);
 myLibrary.forEach(book => {
-const booksLibrary = document.querySelector(".books");
+
+
 
  const newBook = document.createElement("div");
  const bookName = document.createElement("h1");
@@ -43,6 +51,7 @@ const booksLibrary = document.querySelector(".books");
  newBook.appendChild(pagesInBook);
  newBook.appendChild(alreadyRead);
 
+ 
  booksLibrary.appendChild(newBook);
 })
 }
