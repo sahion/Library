@@ -55,5 +55,8 @@ myLibrary.forEach(book => {
  booksLibrary.appendChild(newBook);
 })
 }
-addBookToLibrary();
-UpdateLibrary();
+
+const addNewBook = document.querySelector(".addnewbook");
+addNewBook.addEventListener("click", function(){
+  addBookToLibrary();
+});
