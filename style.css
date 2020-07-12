@@ -11,8 +11,9 @@
   align-content: space-around;
 }
 .book{
-  width:15%;
+  width:10em;
   border:1px solid blue;
   border-radius: 20px;
   height:250px;
+  text-align: center;
 }

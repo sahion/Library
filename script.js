@@ -18,9 +18,33 @@ function addBookToLibrary(){
   myLibrary.push(new Book(title,author,read,pages));
 }
 
-addBookToLibrary();
 
 
+
+function UpdateLibrary(){
 myLibrary.forEach(book => {
-console.log(book.info());
+const booksLibrary = document.querySelector(".books");
+
+ const newBook = document.createElement("div");
+ const bookName = document.createElement("h1");
+ const authorName = document.createElement("h2");
+ const pagesInBook = document.createElement("p");
+ const alreadyRead = document.createElement("p");
+
+ newBook.classList.add("book");
+
+ bookName.textContent = book.title;
+ authorName.textContent = book.author;
+ pagesInBook.textContent = `${book.title} pages`;
+ alreadyRead.textContent = (book.read)? "I already read this book" : "I didn't read this book before";
+
+ newBook.appendChild(bookName);
+ newBook.appendChild(authorName);
+ newBook.appendChild(pagesInBook);
+ newBook.appendChild(alreadyRead);
+
+ booksLibrary.appendChild(newBook);
 })
+}
+addBookToLibrary();
+UpdateLibrary();
