@@ -1,5 +1,6 @@
 let myLibrary = [];
 let deleteButtons = [];
+let updateButtons = [];
 
 function Book(title,author,read,pages){
   this.title = title;
@@ -61,16 +62,22 @@ myLibrary.forEach(book => {
  deleteButton.dataset.title = book.title;
  deleteButton.dataset.author = book.author;
  deleteButton.classList.add("delete");
- 
+
+ const updateButton = document.createElement("input");
+ updateButton['type']="button";
+ updateButton['value']="Update read status";
+ updateButton.dataset.title = book.title;
+ updateButton.dataset.author = book.author;
+ updateButton.classList.add("update");
+
+ newBook.appendChild(updateButton); 
  newBook.appendChild(deleteButton);
+
 
  booksLibrary.appendChild(newBook);
 })
 
- deleteButtons = document.querySelectorAll(".delete");
- deleteButtons.forEach(button => {
-  button.addEventListener('click', DeleteBook);
-});
+ClickOnButtons();
 }
 
 function DeleteBook(obj){
@@ -89,7 +96,29 @@ UpdateLibrary();
 
 const addNewBook = document.querySelector(".addnewbook");
 
+function UpdateBook(obj){
+  
+  let next = true;
+  let i = 0;
+  while (next && i<myLibrary.length) {
+    if (myLibrary[i].title == obj.target.dataset.title && myLibrary[i].author==obj.target.dataset.author){
+      myLibrary[i].read=!myLibrary[i].read;
+      next = false;
+  }
+  i++;
+}
+UpdateLibrary();
+}
 
-
+function ClickOnButtons(){
+  deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach(button => {
+   button.addEventListener('click', DeleteBook);
+ });
+  updateButtons = document.querySelectorAll(".update");
+  updateButtons.forEach(button => {
+   button.addEventListener('click', UpdateBook);
+ });
+}
 addNewBook.addEventListener("click", AddBookToLibrary);
 
