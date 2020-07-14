@@ -1,4 +1,5 @@
 let myLibrary = [];
+let deleteButtons = [];
 
 function Book(title,author,read,pages){
   this.title = title;
@@ -10,12 +11,13 @@ function Book(title,author,read,pages){
   }
 }
 
-function addBookToLibrary(){
+function AddBookToLibrary(){
   let title = prompt("Title of the book");
   let author = prompt("Name of the author");
-  let read = (prompt("Did you read this book? Y/N")=="Y" ? true : false );
+  let read = (prompt("Did you read this book? Y/N")[0]=="Y" ? true : false );
   let pages = prompt("how much pages in this book?");
-  myLibrary.push(new Book(title,author,read,pages));
+  
+  (title && author && pages) ? myLibrary.push(new Book(title,author,read,pages)) : AddBookToLibrary();
   UpdateLibrary();
 }
 
@@ -50,13 +52,44 @@ myLibrary.forEach(book => {
  newBook.appendChild(authorName);
  newBook.appendChild(pagesInBook);
  newBook.appendChild(alreadyRead);
+ newBook.dataset.title = book.title;
+ newBook.dataset.author = book.author;
 
+ const deleteButton = document.createElement("input");
+ deleteButton['type']="button";
+ deleteButton['value']="Delete";
+ deleteButton.dataset.title = book.title;
+ deleteButton.dataset.author = book.author;
+ deleteButton.classList.add("delete");
  
+ newBook.appendChild(deleteButton);
+
  booksLibrary.appendChild(newBook);
 })
+
+ deleteButtons = document.querySelectorAll(".delete");
+ deleteButtons.forEach(button => {
+  button.addEventListener('click', DeleteBook);
+});
+}
+
+function DeleteBook(obj){
+  
+  let next = true;
+  let i = 0;
+  while (next && i<myLibrary.length) {
+    if (myLibrary[i].title == obj.target.dataset.title && myLibrary[i].author==obj.target.dataset.author){
+      myLibrary.splice(i,1);
+      next = false;
+  }
+  i++;
+}
+UpdateLibrary();
 }
 
 const addNewBook = document.querySelector(".addnewbook");
-addNewBook.addEventListener("click", function(){
-  addBookToLibrary();
-});
+
+
+
+addNewBook.addEventListener("click", AddBookToLibrary);
+

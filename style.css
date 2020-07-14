@@ -1,8 +1,8 @@
 .books {
   margin: 0 auto;
   width:80%;
-  height:600px;
   border:1px solid red;
+  min-height: 300px;
   
 
   display:flex;
